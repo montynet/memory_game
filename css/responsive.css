@@ -1,0 +1,33 @@
+@media screen and (max-width: 500px) {
+  .tile {
+    border: 2px solid red;
+    width: 60px;
+    height: 60px;
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+}
+
+@media screen and (min-width: 700px) {
+  .content {
+    width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media screen and (max-width: 305px){
+  /*For smaller screens than 305px we show scrollbars*/
+  .content {
+    width: 305px;
+    overflow-scrolling: auto;
+  }
+}
+
+@media screen and (max-width: 360px){
+  /*Make the buttons on modal block*/
+  .modal button {
+    display: block;
+  }
+}
