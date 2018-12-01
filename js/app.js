@@ -34,7 +34,7 @@ const GAME = function() {
   }
 
   const STARTING_MOVES = 0,
-    TOTAL_NUMBER_OF_CARDS = 2,
+    TOTAL_NUMBER_OF_CARDS = 16,
     USER_MOVES_TO_DECREASE_COUNTER = 10;
 
   let stack = new Stack(),
