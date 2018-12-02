@@ -30,7 +30,8 @@ play and render this game.
 
 * [Webstorm](https://www.jetbrains.com/webstorm/) - IDE that I like using.
 * [Font Awesome](https://fontawesome.com/v4.7.0/icons/) - Library of icons, some icons exist.
-
+* [Timer](https://github.com/husa/timer.js/) - A library to for some timer implementation logic.
+* [Animate](https://github.com/daneden/animate.css/) - Animation used for the shake animation of cards.
 ## Contributing
 
 N/A

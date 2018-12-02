@@ -1,4 +1,4 @@
-const GAME = function() {
+const GAME = function () {
 
   /**
    * Stack class to keep track of matches.
@@ -35,7 +35,9 @@ const GAME = function() {
 
   const STARTING_MOVES = 0,
     TOTAL_NUMBER_OF_CARDS = 16,
-    USER_MOVES_TO_DECREASE_COUNTER = 10;
+    USER_MOVES_TO_DECREASE_COUNTER = 10,
+    MINIMUM_STARS_TO_SHOW = 1,
+    NUMBER_OF_STARS = 5;
 
   let stack = new Stack(),
     winners = [],
@@ -119,7 +121,8 @@ const GAME = function() {
    * Calls to remove the checked star if a move counter is divisible by our predefined counter
    */
   function updateStarsIfNeeded() {
-    if (updatedUserMoves % USER_MOVES_TO_DECREASE_COUNTER === 0) {
+    if (updatedUserMoves % USER_MOVES_TO_DECREASE_COUNTER === 0
+      && updatedUserMoves <= ((NUMBER_OF_STARS - MINIMUM_STARS_TO_SHOW) * USER_MOVES_TO_DECREASE_COUNTER)) {
       removeCheckStarClass(allStars);
       removeCheckStarClass(allStarsModal);
     }
@@ -205,7 +208,8 @@ const GAME = function() {
   }
 
   /**
-   * Removes a specific class from the target element
+   * Removes a specific class from the target element.
+   *
    * @param e
    */
   function removeHiddenClass(e) {
@@ -313,6 +317,23 @@ const GAME = function() {
   }
 
   /**
+   * Adds animation to cards on failure as suggested by Udacity reviewer.
+   * @param card the element which needs to be animated
+   */
+  function animateCardOnFailure(card) {
+    let animatedTimer = new Timer(),
+      animatedTime = 0.25;
+    card.classList.add("animated");
+    card.classList.add("shake");
+
+
+    animatedTimer.start(animatedTime).on("end", () => {
+      card.classList.remove("animated");
+      card.classList.remove("shake");
+    });
+  }
+
+  /**
    * Event listeners section.
    */
   boxSection.addEventListener("click", function (e) {
@@ -322,10 +343,11 @@ const GAME = function() {
 
       let target = e.target,
         color = target.classList[1];
+
       //add the target to the stack
       stack.push(target);
 
-      //process the user"s rating
+      //process the user's rating
       processRating();
 
       //if stack has more than 1 compare
@@ -338,11 +360,20 @@ const GAME = function() {
           //check if the user won
           hasUserWon();
         } else {
-          //user failed to find match add hidden class to both
+          //user failed to find match add hidden class to both, add a timer so that
+          //user can briefly see the cards.
+          let hiddenTimer = new Timer(),
+            timeInSeconds = 0.25;
           let current = stack.pop();
           let previous = stack.pop();
-          addHiddenClass(current);
-          addHiddenClass(previous);
+          hiddenTimer.start(timeInSeconds).on("end", () => {
+
+            animateCardOnFailure(current);
+            animateCardOnFailure(previous);
+            addHiddenClass(current);
+            addHiddenClass(previous);
+          });
+
         }
       }
     }
@@ -351,7 +382,7 @@ const GAME = function() {
   /**
    * Adds an event listener for when the user wants to reset.
    */
-  resetButton.addEventListener("click", function (event) {
+  resetButton.addEventListener("click", e => {
     cleanTheGame();
   });
 
@@ -366,13 +397,13 @@ const GAME = function() {
   /**
    * Adds an event listener for when the user does not wish to play again.
    */
-  noPlayBtn.addEventListener("click", function (event) {
+  noPlayBtn.addEventListener("click", e => {
     closeModal(modal);
   });
 
   //ensure no globals exists and only expose the start game function
   return {
-    startGame: function(){
+    startGame: function () {
       return startGame()
     }
   }
