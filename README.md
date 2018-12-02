@@ -17,6 +17,10 @@ You will when you uncover all 16 cards.
 At any point you can press reset button to reshuffle cards and start
 again.
 
+Do you want to try it out?
+[Plnkr Demo](http://run.plnkr.co/plunks/lhuI34Sb0OXwf0Ee9P6I/)
+
+
 ### Installing
 
 Any modern browser in a desktop or mobile device will be able to
